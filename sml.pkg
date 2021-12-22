@@ -1,0 +1,5 @@
+require {
+  github.com/diku-dk/sml-server 0.0.4 #60514591c320ba525c17481461a9348e1343f77a
+  github.com/melsman/mlkit-postgresql 0.3.0 #bf9dfbca7b021201ca2a9c0c5dfb19eca29dc727
+  github.com/diku-dk/sml-regexp 0.1.0 #f0d0891e746255d701cd9b17e8a6a6b76799c4f9
+}

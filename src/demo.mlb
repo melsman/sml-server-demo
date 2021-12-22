@@ -1,0 +1,12 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+  ../lib/github.com/diku-dk/sml-regexp/regexp.mlb
+  ../lib/github.com/melsman/mlkit-postgresql/pgdb-quot.mlb
+  ../lib/github.com/diku-dk/sml-server/server.mlb
+  ../lib/github.com/diku-dk/sml-server/test/examples.sml
+  Page.sml
+  formvar.sig
+  formvar.sml
+in
+  demo.sml
+end
