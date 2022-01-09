@@ -1,5 +1,4 @@
 
-# macos with homebrew:
 POSTGRESQL_INCLUDEDIR ?= /usr/include/postgrresql
 SSL_INCLUDEDIR ?= /usr/include/openssl
 SSL_LIBDIR ?= /usr/lib/openssl
@@ -12,14 +11,17 @@ SRCFILES = $(shell ls -1 *.sml *.sig)
 .PHONY: all
 all: demo.exe
 
-demo.exe: demo.mlb $(SRCFILES) libsmlpq.a libsmlssl.a
+../lib:
+	(cd .. && smlpkg sync)
+
+demo.exe: demo.mlb $(SRCFILES) libsmlpq.a libsmlssl.a ../lib
 	$(MLKIT) -quot -output $@ -libdirs ".,$(SSL_LIBDIR)" -libs "smlpq,pq,smlssl,ssl,m" $<
 
-libsmlpq.a:
+libsmlpq.a: ../lib
 	MLKIT_INCLUDEDIR=$(MLKIT_INCLUDEDIR) $(MAKE) -C ../lib/github.com/melsman/mlkit-postgresql lib
 	cp -p ../lib/github.com/melsman/mlkit-postgresql/libsmlpq.a $@
 
-libsmlssl.a:
+libsmlssl.a: ../lib
 	MLKIT_INCLUDEDIR=$(MLKIT_INCLUDEDIR) $(MAKE) -C ../lib/github.com/melsman/mlkit-ssl-socket lib
 	cp -p ../lib/github.com/melsman/mlkit-ssl-socket/libsmlssl.a $@
 
