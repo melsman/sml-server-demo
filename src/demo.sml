@@ -1,6 +1,9 @@
 
 local
 
+infix |>
+fun x |> f = f x
+
 structure FormvarService : SERVICE = struct
 
   structure FV = FormVar
@@ -70,6 +73,75 @@ structure FormvarService : SERVICE = struct
   fun service (path:path) : service_instance =
       {name = SOME "Checking form variables",
        handler = fn ["chk"] => chk path
+                  | _ => send path}
+
+end
+
+structure PageWordsService : SERVICE = struct
+
+  structure FV = FormVar
+  open Http
+
+  fun mkForm path =
+      `<form method=post action=^(path)/fetch>
+         <table>
+           <tr><td>URL</td><td><input type=text size=25 name=url></td>
+               <td><input type=submit value="Fetch"></td>
+           </tr>
+         </table>
+       </form>`
+
+  fun send path (ctx:Server.ctx) =
+      let val q = mkForm path
+      in Page.return ctx "Top-10 word occurences on web page" (Quot.toString q)
+      end
+
+  fun take _ nil = nil
+    | take 0 _ = nil
+    | take i (x::xs) = x::take (i-1) xs
+
+  fun fetch path ctx =
+      let val errs = FV.emptyErr ctx
+          val url = FV.getUrl ("url", "Url", errs)
+          val _ = FormVar.anyErrors errs Page.return
+      in case Server.Fetch.fetchUrl url of
+             SOME resp =>
+             (case #body resp of
+                  SOME s =>
+                  let fun loop acc nil = List.rev acc
+                        | loop acc ((x,i)::(y,j)::rest) =
+                          if x = y then loop acc ((x,i+j)::rest)
+                          else loop ((x,i)::acc) ((y,j)::rest)
+                        | loop acc [p] = List.rev (p::acc)
+                      val tsi = String.tokens (fn c => not (Char.isAlpha c)) s
+                                |> ListSort.sort String.compare
+                                |> map (fn s => (s,1))
+                                |> loop nil
+                                |> ListSort.sort (fn ((_,i),(_,j)) => Int.compare (j,i))
+                                |> take 10
+                  in if List.length tsi <= 0 then
+                       Page.return ctx "Sorry" "No Words found"
+                     else
+                       List.map (fn (x,i) => "<li>" ^ x ^ " : " ^ Int.toString i ^
+                                             "</li>")
+                                tsi
+                       |> String.concat
+                       |> (fn s => "<ul>" ^ s ^ "</ul>")
+                       |> Page.return ctx "Top-10 word occurrences on web page"
+                  end
+                | NONE =>
+                  Page.return ctx "Failed with response"
+                              ("Server send the response '"
+                               ^ Response.lineToString (#line resp)
+                               ^ "'")
+             )
+           | NONE => Page.return ctx "Failed to fetch page"
+                                 ("Failed to fetch page from " ^ url)
+      end
+
+  fun service (path:path) : service_instance =
+      {name = SOME "Top-10 word occurrences on web page (Fetch foreign pages)",
+       handler = fn ["fetch"] => fetch path
                   | _ => send path}
 
 end
@@ -150,6 +222,7 @@ val services =
      ("/cookie",      CookieService.service),
      ("/file_upload", FileUploadService.service),
      ("/guest",       GuestService.service),
+     ("/page_words",  PageWordsService.service),
      ("/formvar",     FormvarService.service)
     ]
 

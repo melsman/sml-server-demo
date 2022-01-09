@@ -184,7 +184,7 @@ structure FormVar :> FORM_VAR = struct
 
   val getPhone = get' (regExpMatch "[a-zA-Z0-9ÆØÅæøå '\\-.:;,]+") "phone number" msgPhone
 
-  val getUrl = get' (regExpMatch "http://[0-9a-zA-Z/\\-\\\\._~]+(:[0-9]+)?") "URL" msgURL
+  val getUrl = get' (regExpMatch "https?://[0-9a-zA-Z/\\-\\\\._~]+(:[0-9]+)?") "URL" msgURL
 
   val getEnum =
    fn enums => get' (chkEnum enums) "enumeration" (msgEnum enums)
