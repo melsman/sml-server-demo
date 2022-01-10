@@ -11,6 +11,12 @@ SRCFILES = $(shell ls -1 *.sml *.sig)
 .PHONY: all
 all: demo.exe
 
+.PHONY: test
+test: demo.exe
+	$(MAKE) prepare
+	./demo.exe --help
+	./demo.exe --version
+
 ../lib:
 	(cd .. && smlpkg sync)
 
