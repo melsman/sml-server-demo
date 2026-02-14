@@ -36,6 +36,8 @@ To test the web server, first do as follows:
 
 Now, request the location http://localhost:8000 using your favorite browser.
 
+Help is available by passing the `--help` command-line option.
+
 ## Future work
 
 The server is currently single-threaded.
