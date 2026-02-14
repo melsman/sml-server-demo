@@ -20,7 +20,7 @@ The package manager [smlpkg](https://github.com/diku-dk/smlpkg). Use
 
 A Postgresql database installation.
 
-For details, see the [Github Action yaml file](.github/workflows/main.yaml).
+For details, see the [Github Action file](.github/workflows/main.yml).
 
 ### Testing
 
