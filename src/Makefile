@@ -1,8 +1,17 @@
 
-POSTGRESQL_INCLUDEDIR ?= /usr/include/postgrresql
+ifeq ($(shell uname),Darwin)
+MLKIT_INCLUDEDIR ?= /usr/local/share/mlkit/include/
+SSL_INCLUDEDIR ?= /usr/local/opt/openssl/include
+SSL_LIBDIR ?= /usr/local/opt/openssl/lib/
+CFLAGS += -arch x86_64
+else
+MLKIT_INCLUDEDIR ?= /usr/share/mlkit/include/
 SSL_INCLUDEDIR ?= /usr/include/openssl
 SSL_LIBDIR ?= /usr/lib/openssl
-MLKIT_INCLUDEDIR ?= /usr/local/share/mlkit/include/
+endif
+
+POSTGRESQL_INCLUDEDIR ?= $(shell pg_config --includedir)
+POSTGRESQL_LIBDIR ?= $(shell pg_config --libdir)
 
 MLKIT ?= mlkit
 
@@ -21,7 +30,7 @@ test: demo.exe
 	(cd .. && smlpkg sync)
 
 demo.exe: demo.mlb $(SRCFILES) libsmlpq.a libsmlssl.a ../lib
-	$(MLKIT) -quot -output $@ -libdirs ".,$(SSL_LIBDIR)" -libs "smlpq,pq,smlssl,ssl,m" $<
+	$(MLKIT) -quot -output $@ -libdirs ".,$(SSL_LIBDIR),$(POSTGRESQL_LIBDIR)" -libs "smlpq,pq,smlssl,ssl,m" $<
 
 libsmlpq.a: ../lib
 	MLKIT_INCLUDEDIR=$(MLKIT_INCLUDEDIR) $(MAKE) -C ../lib/github.com/melsman/mlkit-postgresql lib

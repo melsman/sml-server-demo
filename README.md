@@ -5,9 +5,9 @@ concert with a few MLKit extensions and libraries:
 
 - Quotations for writing HTML and SQL queries.
 
-- Database connectivity using a Postgresql client API.
+- Database connectivity using a [Postgresql client API](https://github.com/melsman/mlkit-postgresql).
 
-- Fetching of HTTPS pages using OpenSSL.
+- Fetching of HTTPS pages using [OpenSSL](https://github.com/melsman/mlkit-ssl-socket).
 
 ## Assumptions
 

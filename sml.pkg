@@ -1,7 +1,7 @@
 require {
   github.com/diku-dk/sml-server 0.0.4 #60514591c320ba525c17481461a9348e1343f77a
-  github.com/melsman/mlkit-postgresql 0.3.0 #bf9dfbca7b021201ca2a9c0c5dfb19eca29dc727
-  github.com/diku-dk/sml-regexp 0.1.0 #f0d0891e746255d701cd9b17e8a6a6b76799c4f9
-  github.com/melsman/mlkit-ssl-socket 0.0.1 #61cf671553ff1f711a87bc3b6372f2f7a5e9ebe0
-  github.com/diku-dk/sml-sort 0.2.0 #2cb5a201e9ad26e124b66aaafa57352c49f1405a
+  github.com/melsman/mlkit-postgresql 0.4.0 #01e92412999b7a8ca7651aea50894452045434bd
+  github.com/diku-dk/sml-regexp 0.1.1 #b91e46945d68c3cb72b6bb002d562a1f57ecc01e
+  github.com/melsman/mlkit-ssl-socket 0.0.2 #7a1b14ab436a895bc207cf999c4abd3f685ef43d
+  github.com/diku-dk/sml-sort 0.2.1 #9efbabfd57e2db2514a07e69156d6857efe1a99f
 }
