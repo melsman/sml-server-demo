@@ -84,8 +84,8 @@ jobs:
 
       - name: Build
         run: |
-          make all
+          MLKIT_INCLUDEDIR=$RUNHOME/.local/share/mlkit/include make all
 
       - name: Run tests
         run: |
-          make test
+          MLKIT_INCLUDEDIR=$RUNHOME/.local/share/mlkit/include make test
