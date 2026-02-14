@@ -38,9 +38,15 @@ Now, request the location http://localhost:8000 using your favorite browser.
 
 Help is available by passing the `--help` command-line option.
 
-## Future work
+## Previos and Future work
 
-The server is currently single-threaded.
+This code base (together with
+[sml-server](https://github.com/diku-dk/sml-server)) replaces the no-longer
+supported old SMLserver code [1,2], which used a bytecode interpretation approach to
+serve web pages [3].
+
+The server is currently single-threaded and future work will investigate the
+possibilities for crafting a multi-threaded server.
 
 ## Authors
 
@@ -49,3 +55,11 @@ Copyright (c) 2022-2026 Martin Elsman, University of Copenhagen.
 ## License
 
 See [LICENSE](LICENSE) (MIT License).
+
+## References
+
+[1] Martin Elsman and Niels Hallenberg. __Web Programming with SMLserver__. In Fifth International Symposium on Practical Aspects of Declarative Languages (PADL ‘03). New Orleans, Louisiana, USA. January 2003. [pdf](https://elsman.com/pdf/padl2003.pdf).
+
+[2] Martin Elsman, Niels Hallenberg, and Carsten Varming. __SMLserver — A Functional Approach to Web Publishing__ (Second Edition). IT University of Copenhagen, Denmark. April, 2007. [pdf](https://elsman.com/pdf/smlserver-book-20070410.pdf).
+
+[3] Martin Elsman and Niels Hallenberg. __A Region-Based Abstract Machine for the ML Kit__. Royal Veterinary and Agricultural University of Denmark and IT University of Copenhagen. IT University Technical Report Series. TR-2002-18. August, 2002. [pdf](https://elsman.com/pdf/kam.pdf).
