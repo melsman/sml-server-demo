@@ -1,6 +1,6 @@
 ## sml-server-demo [![CI](https://github.com/melsman/sml-server-demo/workflows/CI/badge.svg)](https://github.com/melsman/sml-server-demo/actions)
 
-Demonstration of [sml-server](github.com/diku-dk/sml-server) in
+Demonstration of [sml-server](https://github.com/diku-dk/sml-server) in
 concert with a few MLKit extensions and libraries:
 
 - Quotations for writing HTML and SQL queries.
